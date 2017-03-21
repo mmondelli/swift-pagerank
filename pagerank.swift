@@ -32,11 +32,7 @@ app (file o) sort (file i)
 
 foreach t,i in text
 {
-	select[i] = select_word(t, w);
-	count[i] = count_word(select[i]);
 	
 }
 
-group = group_count(count);
-sort = sort(group);
 
