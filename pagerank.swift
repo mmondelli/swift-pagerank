@@ -1,12 +1,12 @@
 type file; 
 
-#swift pagerank.swift -word=Brazil
+#USE: swift pagerank.swift -word=Brazil
 
 string w = arg("word");
 
-file text[] <filesys_mapper; location="./raw.en", prefix="english">;
-file select[] <concurrent_mapper; location=".", prefix="select", suffix=".txt">;
-file count[] <concurrent_mapper; location=".", prefix="count_word", suffix=".txt">;
+file text[] <filesys_mapper; location="./raw.en3", prefix="english">;
+file select[] <simple_mapper; location="./select", prefix="select", suffix=".txt">;
+file count[] <simple_mapper; location="./count", prefix="count_word", suffix=".txt">;
 file group <"group.txt">;
 file sort <"sort.txt">;
 
@@ -32,9 +32,11 @@ app (file o) sort (file i)
 
 foreach t,i in text
 {
-	select[i] = select_word(text[i], w);
+	select[i] = select_word(t, w);
 	count[i] = count_word(select[i]);
+	
 }
 
 group = group_count(count);
 sort = sort(group);
+
